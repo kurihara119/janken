@@ -1,6 +1,7 @@
 class Hand
   def hand()
-    @randam_hand = rand(3)
+    randam_hand = rand(3)
+    $game = nil
     input_finger = Finger.new()
     puts "じゃんけん..."
     puts "0(グー)1(チョキ)2(パー)3(戦わない)"
@@ -11,16 +12,18 @@ class Hand
       puts "ホイ！"
       puts "---------------"
       puts "あなた：#{@janken[@my_hand]}を出しました"
-      puts "相手：#{@janken[@randam_hand]}を出しました"
+      puts "相手：#{@janken[randam_hand]}を出しました"
       puts "---------------"
       #あいこの場合hand_aiko()を呼ぶ
-      if @my_hand == @randam_hand
+      if @my_hand == randam_hand
         hand_aiko()
       #勝った場合finger()を呼ぶ
-      elsif (@my_hand == 0 && @randam_hand == 1) || (@my_hand == 1 && @randam_hand == 2) || (@my_hand == 2 && @randam_hand == 0)
+      elsif (@my_hand == 0 && randam_hand == 1) || (@my_hand == 1 && randam_hand == 2) || (@my_hand == 2 && randam_hand == 0)
+        $game = "win"
         input_finger.finger()
       #負けた場合finger()を呼ぶ
-      elsif (@my_hand == 0 && @randam_hand == 3) || (@my_hand == 1 && @randam_hand == 0) || (@my_hand == 2 && @randam_hand == 1)
+      elsif (@my_hand == 0 && randam_hand == 2) || (@my_hand == 1 && randam_hand == 0) || (@my_hand == 2 && randam_hand == 1)
+        $game = "lose"
         input_finger.finger()
       end
     elsif @my_hand == 3
@@ -33,8 +36,8 @@ class Hand
   end
 
   def hand_aiko()
+    randam_hand = rand(3)
     input_finger = Finger.new()
-    $game = nil
     puts "あいこで..."
     puts "0(グー)1(チョキ)2(パー)3(戦わない)"
     @my_hand = gets.to_i
@@ -43,17 +46,17 @@ class Hand
       puts "ホイ！"
       puts "---------------"
       puts "あなた：#{@janken[@my_hand]}を出しました"
-      puts "相手：#{@janken[@randam_hand]}を出しました"
+      puts "相手：#{@janken[randam_hand]}を出しました"
       puts "---------------"
       #あいこの場合hand_aiko()を呼ぶ
-      if @my_hand == @randam_hand
+      if @my_hand == randam_hand
         hand_aiko()
       #勝った場合finger()を呼ぶ
-      elsif (@my_hand == 0 && @randam_hand == 1) || (@my_hand == 1 && @randam_hand == 2) || (@my_hand == 2 && @randam_hand == 0)
+      elsif (@my_hand == 0 && randam_hand == 1) || (@my_hand == 1 && randam_hand == 2) || (@my_hand == 2 && randam_hand == 0)
         $game = "win"
         input_finger.finger()
       #負けた場合finger()を呼ぶ
-      elsif (@my_hand == 0 && @randam_hand == 3) || (@my_hand == 1 && @randam_hand == 0) || (@my_hand == 2 && @randam_hand == 1)
+      elsif (@my_hand == 0 && randam_hand == 2) || (@my_hand == 1 && randam_hand == 0) || (@my_hand == 2 && randam_hand == 1)
         $game = "lose"
         input_finger.finger()
       end
